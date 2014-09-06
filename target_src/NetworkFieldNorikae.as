@@ -1,4 +1,4 @@
-﻿package network.field{
+package network.field{
 	import flash.display.MovieClip;
 	import flash.display.DisplayObject;
 	import flash.events.Event;

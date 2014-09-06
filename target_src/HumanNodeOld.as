@@ -1,4 +1,4 @@
-﻿package network.component{
+package network.component{
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.display.DisplayObject;

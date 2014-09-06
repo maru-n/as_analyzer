@@ -1,4 +1,4 @@
-﻿package network.component{
+package network.component{
 	import flash.display.SimpleButton;
 	import tmbutil.TmbMovieClip;
 	

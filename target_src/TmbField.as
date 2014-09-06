@@ -1,4 +1,4 @@
-﻿package tmbutil{
+package tmbutil{
 	/**
 	* 友部用フィールド基本クラス
 	* ズームインとか、ズームアウトとかの機能も付ける予定。

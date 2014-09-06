@@ -1,4 +1,4 @@
-﻿package network.component{
+package network.component{
     public class ProductNode extends HumanNode{
 		
 

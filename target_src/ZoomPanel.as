@@ -1,4 +1,4 @@
-﻿package network.component{
+package network.component{
 	import flash.display.MovieClip;
 	import tmbutil.TmbMovieClip;
 	import flash.events.Event;
@@ -127,7 +127,8 @@
 			this._zoomIn.mouseEnabled = true;
 			_parent._nf.moveAll();
             trace("nf_scale2: "+_parent._nf.scaleX +" "+_parent._nf.scaleY);
-            _parent._nf.zoomAll(this._currentR);
+            _parent._nf.zoomAll(this._currentR);
+
 		}
 	}
 }

@@ -1,4 +1,4 @@
-﻿package network.component{
+package network.component{
     /*
      * ノードのベース。この上に、実際の画像やボタンが乗ります。
      */

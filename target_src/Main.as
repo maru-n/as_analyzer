@@ -1,4 +1,4 @@
-﻿package network{
+package network{
     import flash.display.MovieClip;
 	import flash.events.Event;
     import flash.events.MouseEvent;

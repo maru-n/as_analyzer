@@ -1,4 +1,4 @@
-﻿package tmbutil{
+package tmbutil{
 	/**
 	* 友部用計算基本クラス
 	**/

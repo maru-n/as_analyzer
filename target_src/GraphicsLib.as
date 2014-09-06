@@ -1,4 +1,4 @@
-﻿package tmbutil{
+package tmbutil{
 
     import flash.display.Graphics;
     import flash.display.Sprite;

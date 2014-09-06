@@ -1,12 +1,11 @@
-﻿package  
-network.component{
+package network.component{
 	import flash.display.Bitmap;
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.ui.Mouse;
-	
+
 	/**
 	 * 握るハンドカーソル
 	 * @author yuu
@@ -18,28 +17,28 @@ network.component{
 		private var OpenHand:Class;
 		[Embed(source = 'image/gripHand.png')]
 		private var GripHand:Class;
-		
+
 		private var container:Sprite = new Sprite();
 		private var openhand:Bitmap;
 		private var griphand:Bitmap;
-		
+
 		public function GripHandCursor():void {
 			this.mouseEnabled = container.mouseEnabled = false;
 			addChild(container);
-			
+
 			openhand = new OpenHand();
 			griphand = new GripHand();
-			
+
 			openhand.x = - openhand.width / 2;
 			openhand.y = - openhand.height / 2;
 			griphand.x = - griphand.width / 2;
 			griphand.y = - griphand.height / 2;
-			
+
 			container.addChild(openhand);
 			container.addChild(griphand);
 			openhand.visible = false;
 			griphand.visible = false;
-			
+
 			addEventListener(Event.ADDED , onAdded);
 		}
 		private function onAdded(e:Event):void {

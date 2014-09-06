@@ -1,4 +1,4 @@
-﻿package network.field{
+package network.field{
 	import tmbutil.TmbField;
 	import network.component.HumanNodeBase;
 	import network.component.GrabMask;
