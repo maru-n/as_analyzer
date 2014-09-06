@@ -11,6 +11,26 @@ class ASParser(object):
         self.org_src_code = file.read()
         self.src_code = cleanup_source_code(self.org_src_code)
 
+    def get_total_line_num():
+        #TODO:
+        print "this is not implemented!"
+        return 100
+
+    def get_packages():
+        #TODO:
+        print "this is not implemented!"
+        return ["package1", "package2"]
+
+    def get_classes():
+        #TODO:
+        print "this is not implemented!"
+        return ["classA", "classB", "classC"]
+
+    def get_methods():
+        #TODO:
+        print "this is not implemented!"
+        return ["method_a", "method_b", "method_c", "method_d"]
+
     def print_src_code(self):
         print self.src_code
 
