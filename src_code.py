@@ -17,7 +17,9 @@ class SrcCode(object):
 
     def get_available_line(self):
         line_num = 0
-        lines = self.src_code.split('\n')[:-1]
+        lines = self.src_code.split('\n')
+        if lines[-1] == "":
+            lines = lines[:-1]
         while True:
             try:
                 yield lines[line_num]
