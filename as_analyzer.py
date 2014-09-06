@@ -14,6 +14,7 @@ class ASAnalyzer(object):
         self.__add_new_node("top", "top")
 
     def analyze(self, src_code_file_name):
+        self.__current_node = self.__top_node
         self.__src_code = SrcCode(src_code_file_name)
         self.__run_analyze()
 
@@ -77,6 +78,7 @@ class ASAnalyzer(object):
 if __name__ == '__main__':
     filename = sys.argv[1]
     analyzer = ASAnalyzer()
-    analyzer.analyze(filename)
+    for file_name in sys.argv[1:]:
+        analyzer.analyze(file_name)
     analyzer.print_tree()
     #print analyzer.src_code.get_string()
