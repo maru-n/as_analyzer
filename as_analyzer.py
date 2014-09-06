@@ -15,6 +15,7 @@ class ASAnalyzer(object):
 
     def analyze(self, src_code_file_name):
         self.__current_node = self.__top_node
+        self.__add_new_node("file", src_code_file_name)
         self.__src_code = SrcCode(src_code_file_name)
         self.__run_analyze()
 
@@ -51,10 +52,8 @@ class ASAnalyzer(object):
         self.__current_node = element
 
 
-    def get_total_line_num():
-        #TODO:
-        print "this is not implemented!"
-        return 100
+    def get_total_line_num(self):
+        return self.__top_node.get_line_num()
 
     def get_packages():
         #TODO:
@@ -81,4 +80,6 @@ if __name__ == '__main__':
     for file_name in sys.argv[1:]:
         analyzer.analyze(file_name)
     analyzer.print_tree()
+    print "\n----------------"
+    print "total line: " + str(analyzer.get_total_line_num())
     #print analyzer.src_code.get_string()
