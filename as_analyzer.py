@@ -7,16 +7,18 @@ import pdb
 
 class ASAnalyzer(object):
 
-    def __init__(self, src_code_file_name):
+    def __init__(self):
         super(ASAnalyzer, self).__init__()
-        self.src_code = SrcCode(src_code_file_name)
         self.__top_node = None
         self.__current_node = None
         self.__add_new_node("top", "top")
-        self.__analyze()
 
-    def __analyze(self):
-        for line in self.src_code.get_available_line():
+    def analyze(self, src_code_file_name):
+        self.__src_code = SrcCode(src_code_file_name)
+        self.__run_analyze()
+
+    def __run_analyze(self):
+        for line in self.__src_code.get_available_line():
             element_str_array = self.__parse_line(line)
             for elem_str in element_str_array:
                 if elem_str is "{":
@@ -74,6 +76,7 @@ class ASAnalyzer(object):
 
 if __name__ == '__main__':
     filename = sys.argv[1]
-    analyzer = ASAnalyzer(filename)
+    analyzer = ASAnalyzer()
+    analyzer.analyze(filename)
     analyzer.print_tree()
     #print analyzer.src_code.get_string()
