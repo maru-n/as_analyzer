@@ -3,32 +3,36 @@
 import sys
 from element_node import *
 from src_code import *
+import pdb
 
 class ASAnalyzer(object):
 
     def __init__(self, src_code_file_name):
         super(ASAnalyzer, self).__init__()
         self.src_code = SrcCode(src_code_file_name)
-        self.__top_node = self.__current_node = None
+        self.__top_node = None
+        self.__current_node = None
         self.__add_new_node("top", "top")
         self.__analyze()
 
     def __analyze(self):
-        element_stack = []
         for line in self.src_code.get_available_line():
             element_str_array = self.__parse_line(line)
             for elem_str in element_str_array:
                 if elem_str is "{":
                     self.__current_node.increment_scope()
-
+                    line_add_element = self.__current_node
                 elif elem_str is "}":
                     self.__current_node.decrement_scope()
+                    if self.__current_node.is_scope_ended():
+                        line_add_element = self.__current_node
+                        self.__current_node = self.__current_node.get_parent()
                 else:
                     elem_type, elem_name = elem_str.split(" ", 1)
                     self.__add_new_node(elem_type, elem_name)
+                    line_add_element = self.__current_node
 
-                if self.__current_node.is_scope_ended():
-                    self.__current_node = self.__current_node.get_parent()
+            line_add_element.add_line_num(1)
 
     def __parse_line(self, line):
         element_array = re.findall('package\s+\w+|class\s+\w+|function\s.*\(.*\)|{|}',line)
@@ -72,4 +76,3 @@ if __name__ == '__main__':
     filename = sys.argv[1]
     analyzer = ASAnalyzer(filename)
     analyzer.print_tree()
-

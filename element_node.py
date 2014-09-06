@@ -21,7 +21,8 @@ class ElementNode(object):
         return self.__parent_node
 
     def add_line_num(self, n):
-        self.parent_node.add_line_num(n)
+        if self.__parent_node is not None:
+            self.__parent_node.add_line_num(n)
         self.__line_num += n
 
     def get_line_num(self):
@@ -34,12 +35,10 @@ class ElementNode(object):
         self.__scope_num -= 1
 
     def is_scope_ended(self):
-        if self.__scope_num > 0:
-            return False
-        elif self.__scope_num == 0:
+        if self.__scope_num == 0:
             return True
         else:
-            raise Exception("Parsing error.")
+            return False
 
     def get_scope_nest_num(self):
         return self.__scope_num
