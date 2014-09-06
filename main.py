@@ -8,7 +8,7 @@ class Element:
        self.lines = self.lines + 1
 
 class ASParser(object):
-    """docstring for ASParser"""
+
     def __init__(self, src_code_file_name):
         super(ASParser, self).__init__()
         file = open(src_code_file_name, 'r')
@@ -40,9 +40,16 @@ class ASParser(object):
 
     def print_org_src_code(self):
         print self.org_src_code
-    
-    def get_available_line():
-        return
+
+    def get_available_line(self):
+        line_num = 0
+        lines = self.src_code.split('\n')[:-1]
+        while True:
+            try:
+                yield lines[line_num]
+                line_num += 1
+            except IndexError, e:
+                raise StopIteration
 
 
 def remove_comment(src_code_text):
@@ -68,6 +75,8 @@ def cleanup_source_code(src_code_text):
 if __name__ == '__main__':
     filename = sys.argv[1]
     parser = ASParser(filename)
-    
-    parser.print_src_code()
+    #parser.print_src_code()
     #parser.print_org_src_code()
+    for l in parser.get_available_line():
+        #print l + "  :" +str(len(l))
+        print l
