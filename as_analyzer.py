@@ -76,3 +76,4 @@ if __name__ == '__main__':
     filename = sys.argv[1]
     analyzer = ASAnalyzer(filename)
     analyzer.print_tree()
+    #print analyzer.src_code.get_string()

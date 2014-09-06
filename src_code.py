@@ -22,13 +22,14 @@ class SrcCode(object):
             try:
                 yield lines[line_num]
                 line_num += 1
-            except IndexError, e:
+            except IndexError:
                 raise StopIteration
 
     def __remove_comment(self, src_code_text):
-        comment_reg_str = '//.*\n'
-        comment_reg = re.compile(comment_reg_str, re.MULTILINE)
-        src_code_text = re.sub(comment_reg, '\n', src_code_text)
+        multi_line_comment_reg = re.compile("/\*((?:.|\n)*?)\*/")
+        src_code_text = re.sub(multi_line_comment_reg, '', src_code_text)
+        single_line_comment_reg = re.compile('//.*\n', re.MULTILINE)
+        src_code_text = re.sub(single_line_comment_reg, '\n', src_code_text)
         return src_code_text
 
     def __remove_blank(self, src_code_text):

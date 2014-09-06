@@ -44,8 +44,7 @@ class ElementNode(object):
         return self.__scope_num
 
     def describe(self, prefix=""):
-        print prefix,
-        print self
+        print prefix + str(self)
         for c in self.__child_node:
             c.describe(prefix = prefix+"  ")
 
