@@ -3,6 +3,10 @@
 import sys
 import re
 
+class Element:
+   def addOneStep():
+       self.lines = self.lines + 1
+
 class ASParser(object):
     """docstring for ASParser"""
     def __init__(self, src_code_file_name):
@@ -36,6 +40,10 @@ class ASParser(object):
 
     def print_org_src_code(self):
         print self.org_src_code
+    
+    def get_available_line():
+        return
+
 
 def remove_comment(src_code_text):
     comment_reg_str = '//.*\n'
@@ -60,5 +68,6 @@ def cleanup_source_code(src_code_text):
 if __name__ == '__main__':
     filename = sys.argv[1]
     parser = ASParser(filename)
+    
     parser.print_src_code()
     #parser.print_org_src_code()
