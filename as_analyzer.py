@@ -20,13 +20,15 @@ class ASAnalyzer(object):
             for elem_str in element_str_array:
                 if elem_str is "{":
                     self.__current_node.increment_scope()
+
                 elif elem_str is "}":
                     self.__current_node.decrement_scope()
-                    if self.__current_node.is_scope_ended():
-                        self.__current_node = self.__current_node.get_parent()
                 else:
                     elem_type, elem_name = elem_str.split(" ", 1)
                     self.__add_new_node(elem_type, elem_name)
+
+                if self.__current_node.is_scope_ended():
+                    self.__current_node = self.__current_node.get_parent()
 
     def __parse_line(self, line):
         element_array = re.findall('package\s+\w+|class\s+\w+|function\s.*\(.*\)|{|}',line)
