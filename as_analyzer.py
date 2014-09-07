@@ -33,13 +33,15 @@ class ASAnalyzer(object):
                         self.__current_node = self.__current_node.get_parent()
                 else:
                     elem_type, elem_name = elem_str.split(" ", 1)
-                    self.__add_new_node(elem_type, elem_name)
-                    line_add_element = self.__current_node
-
+                    if elem_type == "import":
+                        self.__current_node.add_import_package(elem_name)
+                    else:
+                        self.__add_new_node(elem_type, elem_name)
+                        line_add_element = self.__current_node
             line_add_element.add_line_num(1)
 
     def __parse_line(self, line):
-        element_array = re.findall('package\s+\w+|class\s+\w+|function\s.*\(.*\)|{|}',line)
+        element_array = re.findall('package\s+\w+[\.\w+]*|class\s+\w+|function\s.*\(.*\)|import\s+\w+[\.\w+]*|{|}',line)
         return element_array
 
     def __get_element_name(self, str):
@@ -55,20 +57,14 @@ class ASAnalyzer(object):
     def get_total_line_num(self):
         return self.__top_node.get_line_num()
 
-    def get_packages():
-        #TODO:
-        print "this is not implemented!"
-        return ["package1", "package2"]
+    def get_packages(self):
+        return self.__top_node.get_nodes("package")
 
-    def get_classes():
-        #TODO:
-        print "this is not implemented!"
-        return ["classA", "classB", "classC"]
+    def get_classes(self):
+        return self.__top_node.get_nodes("class")
 
-    def get_methods():
-        #TODO:
-        print "this is not implemented!"
-        return ["method_a", "method_b", "method_c", "method_d"]
+    def get_functions(self):
+        return self.__top_node.get_nodes("function")
 
     def print_tree(self):
         self.__top_node.describe()
@@ -82,4 +78,13 @@ if __name__ == '__main__':
     analyzer.print_tree()
     print "\n----------------"
     print "total line: " + str(analyzer.get_total_line_num())
+    classes = analyzer.get_classes()
+    print "classes num:" + str(len(classes))
+    #print "classes:"
+    #print [c.name for c in classes]
+    functions = analyzer.get_functions()
+    print "function num:" + str(len(functions))
+    #print "classes:"
+    #print [c.name for c in classes]
+
     #print analyzer.src_code.get_string()

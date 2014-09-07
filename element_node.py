@@ -10,6 +10,13 @@ class ElementNode(object):
         self.name = element_name
         self.__line_num = 0
         self.__scope_num = 0
+        self.__import_packages = []
+
+    def add_import_package(self, import_package_name):
+        self.__import_packages.append(import_package_name)
+
+    def get_import_packages(self):
+        return self.__import_packages
 
     def add_child(self, element_node):
         self.__child_node.append(element_node)
@@ -19,6 +26,15 @@ class ElementNode(object):
 
     def get_parent(self):
         return self.__parent_node
+
+    def get_nodes(self, type):
+        if self.type == type:
+            return [self]
+        else:
+            nodes = []
+            for c in self.get_child():
+                nodes.extend(c.get_nodes(type))
+            return nodes
 
     def add_line_num(self, n):
         if self.__parent_node is not None:
@@ -48,5 +64,12 @@ class ElementNode(object):
         for c in self.__child_node:
             c.describe(prefix = prefix+"  ")
 
-    def __str__(self, prefix=""):
-        return self.type + " " + self.name + " (l:" + str(self.__line_num) + ")"
+    def __str__(self):
+        s = self.type + " " + self.name + " (l:" + str(self.__line_num) + ") (import:"
+        return s
+
+
+
+
+
+
