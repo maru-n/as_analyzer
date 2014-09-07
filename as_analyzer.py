@@ -13,13 +13,16 @@ class ASAnalyzer(object):
         self.__current_node = None
         self.__add_new_node("top", "top")
 
-    def analyze(self, src_code_file_name):
+    def analyze_structure(self, src_code_file_name):
         self.__current_node = self.__top_node
         self.__add_new_node("file", src_code_file_name)
         self.__src_code = SrcCode(src_code_file_name)
-        self.__run_analyze()
+        self.__run_parse()
 
-    def __run_analyze(self):
+    def analyze_call_dependency(self):
+        self.__run_call_analysis()
+
+    def __run_parse(self):
         for line in self.__src_code.get_available_line():
             element_str_array = self.__parse_line(line)
             for elem_str in element_str_array:
@@ -34,11 +37,14 @@ class ASAnalyzer(object):
                 else:
                     elem_type, elem_name = elem_str.split(" ", 1)
                     if elem_type == "import":
-                        self.__current_node.add_import_package(elem_name)
+                        self.__current_node.add_use_package(elem_name)
                     else:
                         self.__add_new_node(elem_type, elem_name)
                         line_add_element = self.__current_node
             line_add_element.add_line_num(1)
+
+    def __run_call_analysis(self):
+        pass
 
     def __parse_line(self, line):
         element_array = re.findall('package\s+\w+[\.\w+]*|class\s+\w+|function\s.*\(.*\)|import\s+\w+[\.\w+]*|{|}',line)
@@ -74,7 +80,7 @@ if __name__ == '__main__':
     filename = sys.argv[1]
     analyzer = ASAnalyzer()
     for file_name in sys.argv[1:]:
-        analyzer.analyze(file_name)
+        analyzer.analyze_structure(file_name)
     analyzer.print_tree()
     print "\n----------------"
     print "total line: " + str(analyzer.get_total_line_num())
