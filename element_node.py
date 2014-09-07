@@ -10,15 +10,25 @@ class ElementNode(object):
         self.name = element_name
         self.__line_num = 0
         self.__scope_num = 0
+        self.__use_num = 0
         self.__use_packages = []
-        self.__use_class = []
         self.__use_function = []
 
-    def add_use_package(self, import_package_name):
+    def add_use_packag_names(self, import_package_name):
         self.__use_packages.append(import_package_name)
 
-    def get_use_packages(self):
-        return self.__use_packages
+    def get_use_package_names(self):
+        use_packages = []
+        use_packages.extend(self.__use_packages)
+        if not self.is_top():
+            use_packages.extend(self.get_parent().get_use_package_names())
+        return use_packages
+
+    def add_use_function_names(self, use_function_name):
+        self.__use_function.append(use_function_name)
+
+    def get_use_function_name(self):
+        return self.__use_function
 
     def add_child(self, element_node):
         self.__child_node.append(element_node)
@@ -29,13 +39,31 @@ class ElementNode(object):
     def get_parent(self):
         return self.__parent_node
 
-    def get_nodes(self, type):
-        if self.type == type:
+    def is_top(self):
+        if self.__parent_node is None:
+            return True
+        else:
+            return False
+
+    def add_use_num(self, num):
+        self.__use_num += num
+
+    def get_use_num(self):
+        return self.__use_num
+
+    def is_used(self):
+        if self.__use_num <= 0:
+            return False
+        else:
+            return True
+
+    def find_nodes(self, type, name=None):
+        if self.type == type and (name is None or self.name == name):
             return [self]
         else:
             nodes = []
             for c in self.get_child():
-                nodes.extend(c.get_nodes(type))
+                nodes.extend(c.find_nodes(type, name))
             return nodes
 
     def add_line_num(self, n):
@@ -68,6 +96,10 @@ class ElementNode(object):
 
     def __str__(self):
         s = self.type + " " + self.name + " (l:" + str(self.__line_num) + ")"
+        s += "(function_call:"
+        for f in self.get_use_function_name():
+            s = s + f + ","
+        s += ")"
         return s
 
 
